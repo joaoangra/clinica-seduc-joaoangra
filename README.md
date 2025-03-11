@@ -10,7 +10,7 @@ Projeto de demonstração CRUD usado em aulas no SENAI 2025
 - CSS
 - JavaScript (Vanilla)
 
-## Como testar
+## Como Testar
 - 1 clone este repositório
 - 2 Abra o **XAMPP**, de start em **MySQL**, abra um shell e acesse o MySQL [mysql -u root]
 - 3 Copie o script de população do banco de dados **./docs/bd.sql**
