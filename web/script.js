@@ -2,14 +2,14 @@ const uri = 'http://localhost:3000';
 const titulo = document.querySelector('header h1');
 const main = document.getElementById('cards');
 
-//Obtendo o título da API para a tela
+//Obtendo o título da API para a tela (READ)
 fetch(uri)
     .then(resp => resp.json())
     .then(resp => {
         titulo.innerHTML = resp.titulo
     })
 
-//Obtendo da API e listando as consultas em forma de CARDS
+//Obtendo da API e listando as consultas em forma de CARDS (READ)
 fetch(uri + '/consultas')
     .then(resp => resp.json())
     .then(resp => {
@@ -30,6 +30,7 @@ fetch(uri + '/consultas')
         });
     })
 
+//Cadastrando nova conculta (CREATE)
 const form = document.querySelector('#cadastro form')
 form.addEventListener('submit', e => {
     e.preventDefault()
@@ -52,3 +53,16 @@ form.addEventListener('submit', e => {
                 alert('Erro ao enviar dados para a API');
         })
 })
+
+//Excluído uma consulta (DELETE)
+function deletar(id) {
+    fetch(uri + '/consultas/' + id, { method: 'DELETE' })
+        .then(resp => resp.status)
+        .then(resp => {
+            if (resp == 204) {
+                window.location.reload();
+            } else {
+                alert('Erro ao excluir');
+            }
+        })
+}

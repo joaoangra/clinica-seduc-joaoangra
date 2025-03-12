@@ -81,6 +81,8 @@ main {
     overflow-y: auto;
 
     & div {
+        width: fit-content;
+        height: fit-content;
         display: flex;
         flex-direction: column;
         align-items: center;
