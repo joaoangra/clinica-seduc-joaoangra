@@ -2,12 +2,14 @@ const uri = 'http://localhost:3000';
 const titulo = document.querySelector('header h1');
 const main = document.getElementById('cards');
 
+//Obtendo o título da API para a tela
 fetch(uri)
     .then(resp => resp.json())
     .then(resp => {
         titulo.innerHTML = resp.titulo
     })
 
+//Obtendo da API e listando as consultas em forma de CARDS
 fetch(uri + '/consultas')
     .then(resp => resp.json())
     .then(resp => {
@@ -15,10 +17,14 @@ fetch(uri + '/consultas')
             const card = document.createElement('div');
             card.innerHTML = `
             <h2>Consulta Agendada</h2>
-            <p>Paciente: ${consulta.nome_paciente}</p>
-            <p>Médico: ${consulta.nome_medico}</p>
-            <p>Data: ${new Date(consulta.data_hora).toLocaleDateString('pt-br')}</p>
-            <p>Hora: ${consulta.data_hora.split('T')[1].substring(0, 5)}</p>
+            <p>Paciente: <label contenteditable=true>${consulta.nome_paciente}</label></p>
+            <p>Médico: <label contenteditable=true>${consulta.nome_medico}</label></p>
+            <p>Data: <label contenteditable=true>${new Date(consulta.data_hora).toLocaleDateString('pt-br')}</label></p>
+            <p>Hora: <label contenteditable=true>${consulta.data_hora.split('T')[1].substring(0, 5)}</label></p>
+            <div>
+                <button onclick="deletar(${consulta.consulta_id})">-</button>
+                <button onclick="alterar()">*</button>
+            </div>
             `;
             main.appendChild(card);
         });
