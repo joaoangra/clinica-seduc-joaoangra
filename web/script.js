@@ -58,6 +58,12 @@ form.addEventListener('submit', e => {
 function alterar(id, e) {
     let data = e.parentNode.parentNode.childNodes[7].childNodes[1].innerHTML;
     let hora = e.parentNode.parentNode.childNodes[9].childNodes[1].innerHTML;
+    //Corrigindo o time zone -3 horas
+    let numHora = Number(hora.split(':')[0])
+    let minutos = hora.split(':')[1]
+    numHora -= 3;
+    hora = numHora + ':' + minutos
+    //Juntando a Data com a Hora
     let dataBD = data.split('/').reverse().toString()
     let dataHora = dataBD.replaceAll(',', '-') + 'T' + hora + ':00.000Z'
     const dados = {
