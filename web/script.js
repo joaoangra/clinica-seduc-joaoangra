@@ -44,7 +44,5 @@ form.addEventListener('submit', e => {
                 window.location.reload();
             else
                 alert('Erro ao enviar dados para a API');
-        }).catch(
-            alert('Sem concexão com o Servidor')
-        )
+        })
 })

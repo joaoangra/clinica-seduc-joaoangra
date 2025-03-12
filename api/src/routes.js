@@ -11,5 +11,7 @@ rota.get('/', (req, res)=>{
 //Rotas de consultas
 rota.get('/consultas', Consultas.read);
 rota.post('/consultas', Consultas.create);
+rota.put('/consultas/:id', Consultas.update);
+rota.delete('/consultas/:id', Consultas.del);
 
 module.exports = rota;
