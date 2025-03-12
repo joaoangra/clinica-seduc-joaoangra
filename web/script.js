@@ -23,7 +23,7 @@ fetch(uri + '/consultas')
             <p>Hora: <label contenteditable=true>${consulta.data_hora.split('T')[1].substring(0, 5)}</label></p>
             <div>
                 <button onclick="deletar(${consulta.consulta_id})">-</button>
-                <button onclick="alterar()">*</button>
+                <button onclick="alterar(${consulta.consulta_id},this)">*</button>
             </div>
             `;
             main.appendChild(card);
@@ -53,6 +53,33 @@ form.addEventListener('submit', e => {
                 alert('Erro ao enviar dados para a API');
         })
 })
+
+//Alterando dados da consulta (UPDATE)
+function alterar(id, e) {
+    let data = e.parentNode.parentNode.childNodes[7].childNodes[1].innerHTML;
+    let hora = e.parentNode.parentNode.childNodes[9].childNodes[1].innerHTML;
+    let dataBD = data.split('/').reverse().toString()
+    let dataHora = dataBD.replaceAll(',', '-') + 'T' + hora + ':00.000Z'
+    const dados = {
+        paciente: e.parentNode.parentNode.childNodes[3].childNodes[1].innerHTML,
+        medico: e.parentNode.parentNode.childNodes[5].childNodes[1].innerHTML,
+        quando: dataHora
+    }
+    const cabecalho = {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(dados)
+    }
+    fetch(uri + '/consultas/' + id, cabecalho)
+        .then(resp => resp.status)
+        .then(resp => {
+            if (resp == 202) {
+                window.location.reload();
+            } else {
+                alert("Erro ao alterar");
+            }
+        })
+}
 
 //Excluído uma consulta (DELETE)
 function deletar(id) {
